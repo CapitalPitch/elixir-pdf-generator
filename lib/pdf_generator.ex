@@ -32,7 +32,6 @@ defmodule PdfGenerator do
 
   use Application
   alias Porcelain.Result
-  alias Misc.Random
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -80,9 +79,9 @@ defmodule PdfGenerator do
   def generate( html, options ) do
     wkhtml_path = System.find_executable("wkhtmltopdf")
     if wkhtml_path == nil, do: raise "Cannot find wkhtmltopdf in path. See http://wkhtmltopdf.org"
-    html_file = Path.join System.tmp_dir, Random.string <> ".html"
+    html_file = Path.join System.tmp_dir, Misc.Random.string <> ".html"
     File.write html_file, html
-    pdf_file  = Path.join System.tmp_dir, Random.string <> ".pdf"
+    pdf_file  = Path.join System.tmp_dir, Misc.Random.string <> ".pdf"
 
     shell_params = [ 
       "--page-size", Keyword.get( options, :page_size ) || "A4",
@@ -111,10 +110,10 @@ defmodule PdfGenerator do
     pdftk_path = System.find_executable "pdftk"
     if pdftk_path == nil, do: raise "Cannot find pdftk in path. See https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/"
 
-    if owner_pw == nil, do: owner_pw = Random.string(16)
-    if user_pw  == nil, do: user_pw  = Random.string(16)
+    if owner_pw == nil, do: owner_pw = Misc.Random.string(16)
+    if user_pw  == nil, do: user_pw  = Misc.Random.string(16)
 
-    pdf_output_file  = Path.join System.tmp_dir, Random.string <> ".pdf"
+    pdf_output_file  = Path.join System.tmp_dir, Misc.Random.string <> ".pdf"
 
     %Result{ out: _output, status: status } = Porcelain.exec(
       pdftk_path, [ 
