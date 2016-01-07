@@ -48,7 +48,7 @@ defmodule PdfGenerator.Mixfile do
         # communication with external programs
         {:porcelain, "~> 2.0"},
         # a helper
-        {:random, github: "gutschilla/elixir-helper-random", tags: "0.2.4" },
+        # {:random, github: "gutschilla/elixir-helper-random", tags: "0.2.4" },
         # generate docs
         {:earmark, "~> 0.1", only: :dev},
         {:ex_doc, "~> 0.7", only: :dev}
